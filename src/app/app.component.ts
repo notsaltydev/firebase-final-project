@@ -11,7 +11,7 @@ export class AppComponent {
 
   constructor() {
     // Initialize Firebase
-    const config = {
+    /*const config = {
       apiKey: 'AIzaSyD71fhO9sLIugUIGJtzK-2U9ajgFZ04o5c',
       authDomain: 'fir-final-project-69c46.firebaseapp.com',
       databaseURL: 'https://fir-final-project-69c46.firebaseio.com',
@@ -24,7 +24,7 @@ export class AppComponent {
     const root = database().ref('messages/2');
     root.on('value', function (snap) {
       console.log(snap.key, snap.val());
-    });
+    });*/
   }
 
 }
