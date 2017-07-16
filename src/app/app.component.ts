@@ -1,5 +1,6 @@
-import {Component, Input} from '@angular/core';
-import {initializeApp, database} from 'firebase';
+import {Component} from '@angular/core';
+import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
+import {AngularFireAuth} from 'angularfire2/auth';
 
 @Component({
   selector: 'app-root',
@@ -8,23 +9,13 @@ import {initializeApp, database} from 'firebase';
 })
 export class AppComponent {
   title = 'Hello Angular 4!';
+  courses$: FirebaseListObservable<any[]>;
 
-  constructor() {
-    // Initialize Firebase
-    const config = {
-      apiKey: 'AIzaSyD71fhO9sLIugUIGJtzK-2U9ajgFZ04o5c',
-      authDomain: 'fir-final-project-69c46.firebaseapp.com',
-      databaseURL: 'https://fir-final-project-69c46.firebaseio.com',
-      projectId: 'fir-final-project-69c46',
-      storageBucket: 'fir-final-project-69c46.appspot.com',
-      messagingSenderId: '522312435347'
-    };
-    initializeApp(config);
-
-    const root = database().ref('testArray');
-    root.on('value', function (snap) {
-      console.log(snap.key, snap.val());
-    });
+  constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth) {
+    this.courses$ = db.list('courses');
+    this.courses$.subscribe(
+      val => console.log(val)
+    );
   }
 
 }
