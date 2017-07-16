@@ -9,13 +9,14 @@ import {AngularFireAuth} from 'angularfire2/auth';
 })
 export class AppComponent {
   title = 'Hello Angular 4!';
-  courses$: FirebaseListObservable<any[]>;
+  // courses$: FirebaseListObservable<any[]>;
 
   constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth) {
-    this.courses$ = db.list('courses');
-    this.courses$.subscribe(
-      val => console.log(val)
-    );
+    const courses$: FirebaseListObservable<any[]> = db.list('courses');
+
+    const course$ = db.object('courses/-Kp4kKScdSfUCCNVOaAY');
+
+    course$.subscribe(console.log);
   }
 
 }
