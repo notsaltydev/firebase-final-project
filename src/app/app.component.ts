@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
+import {AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2/database';
 import {AngularFireAuth} from 'angularfire2/auth';
 
 @Component({
@@ -9,14 +9,27 @@ import {AngularFireAuth} from 'angularfire2/auth';
 })
 export class AppComponent {
   title = 'Hello Angular 4!';
-  // courses$: FirebaseListObservable<any[]>;
+  courses$: FirebaseListObservable<any[]>;
+  lesson$: FirebaseObjectObservable<any[]>;
 
   constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth) {
-    const courses$: FirebaseListObservable<any[]> = db.list('courses');
+    this.courses$ = db.list('courses');
 
-    const course$ = db.object('courses/-Kp4kKScdSfUCCNVOaAY');
+    this.courses$.subscribe(console.log);
 
-    course$.subscribe(console.log);
+    this.lesson$ = db.object('lessons/Kp4kKSgS8ujqLb-5vIw');
+
+    this.lesson$.subscribe(console.log);
+  }
+
+  listPush() {
+    this.courses$.push({description: 'TEST NEW COURSE'})
+      .then(
+        () => console.log('List push done.'),
+        console.error
+      );
   }
 
 }
+18. How to Write Data to the Database using Angular Fire ?
+  3:52
