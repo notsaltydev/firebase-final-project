@@ -31,5 +31,4 @@ export class AppComponent {
   }
 
 }
-18. How to Write Data to the Database using Angular Fire ?
-  3:52
+
