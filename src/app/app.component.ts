@@ -11,13 +11,20 @@ export class AppComponent {
   title = 'Hello Angular 4!';
   courses$: FirebaseListObservable<any[]>;
   lesson$: FirebaseObjectObservable<any[]>;
+  firstCourse: any;
 
   constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth) {
     this.courses$ = db.list('courses');
 
-    this.courses$.subscribe(console.log);
+    this.courses$
+      .subscribe(
+        (courses) => {
+          console.log(courses);
+          this.firstCourse = courses[0];
+        }
+      );
 
-    this.lesson$ = db.object('lessons/Kp4kKSgS8ujqLb-5vIw');
+    this.lesson$ = db.object('lessons/-Kp4kKSgS8ujqLb-5vIw');
 
     this.lesson$.subscribe(console.log);
   }
@@ -28,6 +35,26 @@ export class AppComponent {
         () => console.log('List push done.'),
         console.error
       );
+  }
+
+  listRemove() {
+    this.courses$.remove(this.firstCourse);
+  }
+
+  listUpdate() {
+    this.courses$.update(this.firstCourse, {description: 'Angular 2 HTTP Modified'});
+  }
+
+  objUpdate() {
+    this.lesson$.update({description: 'NEW DESCRIPTION 5'});
+  }
+
+  objSet() {
+    this.lesson$.set({description: 'NEW DESCRIPTION 1'});
+  }
+
+  objRemove() {
+    this.lesson$.remove();
   }
 
 }
